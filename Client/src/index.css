@@ -39,6 +39,10 @@ body::-webkit-scrollbar-thumb:hover {
   background: #f2bd9d;
 }
 
+.font-poppins{
+  font-family: "Poppins", sans-serif;
+}
+
 
 
 .heading-1{
@@ -68,4 +72,21 @@ body::-webkit-scrollbar-thumb:hover {
 
 .para-small{
   @apply text-[12px] md:text-[13px] leading-8 lg:font-light leading-tight
+}
+
+
+.btn-primary-hover{
+  @apply hover:bg-gradient-to-r hover:from-primary hover:to-[#d83251] transition-all hover:scale-105 duration-200 
+}
+
+.btn-hover{
+  @apply transition-all hover:scale-105  hover:font-bold
+}
+
+.icon-hover{
+  @apply transition-all duration-200 hover:-translate-y-2 hover:rotate-45
+}
+
+.menu-hover{
+  @apply transition-all hover:scale-105 duration-300 hover:font-bold 
 }

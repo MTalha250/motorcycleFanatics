@@ -1,12 +1,17 @@
 import arrowDown from "../../../assets/arrow-down.svg"
-
+import { motion } from "framer-motion"
 const HowItWorks = () => {
   return (
     <div className="container py-10">
       <div className="flex flex-col justify-center items-center space-y-16">
         <h2 className="heading-2 text-primary capitalize">How it works</h2>
 
-        <div className="flex flex-col lg:gap-20 gap-24">
+        <motion.div
+        initial={{ opacity: 0, x: -75 , }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.9, delay: 0.25 }}
+        viewport={{ once: true }}
+        className="flex flex-col lg:gap-20 gap-24">
           <div className="relative ms:0 lg:-ms-16 bg-white max-w-[850px] lg:px-7 lg:py-4 py-3 px-5 rounded-full outline-4 outline-dotted outline-primary">
             <p className="para-medium text-primary !font-medium">
               Enter the first two digits of your postcode to search for availability in your region.
@@ -27,7 +32,7 @@ const HowItWorks = () => {
             </p>
           </div>
 
-        </div>
+        </motion.div>
 
         <div className="flex md:flex-row flex-col justify-center items-end md:items-start space-x-8 space-y-5">
           <h3 className="w-full md:w-1/2 heading-3 text-primary">Enter the first two digits of your postcode</h3>
@@ -36,7 +41,7 @@ const HowItWorks = () => {
           </form>
         </div>
 
-        <button className="bg-primary py-2 px-12 lg:py-4 lg:px-10 text-white rounded-2xl text-xl font-semibold">Search Now</button>
+        <button className="bg-primary py-2 px-12 lg:py-4 lg:px-10 text-white rounded-2xl text-xl font-semibold btn-primary-hover">Search Now</button>
       </div>
     </div>
   )

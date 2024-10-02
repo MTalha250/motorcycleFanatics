@@ -21,7 +21,7 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   const location = useLocation();
-  const hideHeaderFooter = location.pathname === "/login" || location.pathname === "/signup";
+  const hideHeaderFooter = location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/search-result/available" || location.pathname === "/search-result/not-available" || location.pathname === "/email-verification";
   const searchHeader = location.pathname === '/search-result'
 
   return (
