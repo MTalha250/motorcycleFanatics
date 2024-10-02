@@ -41,9 +41,10 @@ const GetInTouch = () => {
                             <p className="para-small">+271 386-647-3637</p>
                         </div>
                 </motion.div>
+
                 <motion.div
-                initial={{ opacity: 0, x: 95 , }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: -75 , }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.25 }}
                 viewport={{ once: true }}
                 className="md:w-[40%] w-full relative">

@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className="container fixed top-3 z-30 w-full">
 
       {/* Navbar for larger screens */}
-      <div className="h-[70px] lg:h-[90px] w-full bg-[#091022] rounded-3xl flex justify-between items-center px-5 transform transition-all duration-300 hover:shadow-[0_0_0_2px] hover:shadow-primary">
+      <div className="h-[70px] lg:h-[90px] w-full bg-[#091022] rounded-3xl flex justify-between items-center px-5 transform transition-all duration-300 hover:shadow-[0_0_0_2px] hover:shadow-primary ">
 
         <div className="lg:hidden text-white font-bold text-2xl">LOGO</div>
 

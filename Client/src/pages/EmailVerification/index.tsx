@@ -29,7 +29,7 @@ const EmailVerification = () => {
       initial={{ opacity: 0, y: -95 , scale:0.8}}
       whileInView={{ opacity: 1, y: 0 , scale:1}}
       transition={{ duration: 0.9, delay: 0.25 }}
-      className="w-[100%] md:w-[60%] lg:w-[50%] h-[50%] bg-[#f6040061] absolute rounded-b-full -top-28">
+      className="w-[100%] md:w-[60%] lg:w-[50%] h-[50%] bg-[#f6040061] absolute rounded-b-full lg:-top-28 -top-48">
         <img
           src={email}
           alt="email"
@@ -38,7 +38,7 @@ const EmailVerification = () => {
       </motion.div>
 
       {/* Content */}
-      <div className="mt-40 md:mt-20 flex flex-col items-center">
+      <div className="mt-0 md:mt-20 flex flex-col items-center">
         <p className="text-primary text-xl md:text-2xl lg:text-3xl leading-tight font-bold text-center">
           Verify Your Email Address
         </p>
