@@ -17,7 +17,7 @@ const Pricing = () => {
 
                 {/* Card */}
                 <motion.div
-                initial={{ opacity: 0, x: 75 , scale:0.9}}
+                initial={{ opacity: 0, x: -75 , scale:0.9}}
                 whileInView={{ opacity: 1, x: 0 , scale:1}}
                 transition={{ duration: 1.3, delay: 0.25 }}
                 viewport={{ once: true }}
