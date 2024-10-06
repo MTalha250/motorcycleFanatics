@@ -1,6 +1,7 @@
 import email from "../../assets/email.png";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 const EmailVerification = () => {
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
@@ -19,6 +20,11 @@ const EmailVerification = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (otp.includes("")) {
+      toast.error("Please enter the OTP");
+      return;
+    }
+
     console.log("Entered OTP:", otp.join(""));
   };
 
@@ -26,10 +32,11 @@ const EmailVerification = () => {
     <div className="bg-white font-poppins min-h-[100vh] flex flex-col justify-center items-center relative px-4 md:px-0">
       {/* Semi-Circle */}
       <motion.div
-      initial={{ opacity: 0, y: -95 , scale:0.8}}
-      whileInView={{ opacity: 1, y: 0 , scale:1}}
-      transition={{ duration: 0.9, delay: 0.25 }}
-      className="w-[100%] md:w-[60%] lg:w-[50%] h-[50%] bg-[#f6040061] absolute rounded-b-full lg:-top-28 -top-48">
+        initial={{ opacity: 0, y: -95, scale: 0.8 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.9, delay: 0.25 }}
+        className="w-[100%] md:w-[60%] lg:w-[50%] h-[50%] bg-[#f6040061] absolute rounded-b-full lg:-top-28 -top-48"
+      >
         <img
           src={email}
           alt="email"
@@ -44,9 +51,9 @@ const EmailVerification = () => {
         </p>
 
         <motion.form
-        initial={{ opacity: 0, x: 75 , scale:0.8}}
-        whileInView={{ opacity: 1, x: 0 , scale:1}}
-        transition={{ duration: 0.9, delay: 0.25 }}
+          initial={{ opacity: 0, x: 75, scale: 0.8 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.25 }}
           action=""
           className="flex flex-col justify-start items-center mt-8 text-primary"
           onSubmit={handleSubmit}
