@@ -46,10 +46,20 @@ const Login = () => {
     } catch (error: any) {
       if (error.response?.status === 401) {
         toast.error("Invalid email or password");
-        return;
+      } else if (error.response?.status === 402) {
+        toast.error(
+          error.response.data.message || "Email verification required"
+        );
+        setTimeout(() => navigate("/email-verification"), 1500);
+      } else if (error.response?.status === 403) {
+        toast.error(
+          error.response.data.message || "Video verification required"
+        );
+        setTimeout(() => navigate("/video-verification"), 1500);
+      } else {
+        toast.error("Something went wrong, please try again");
+        console.error(error);
       }
-      toast.error("Something went wrong, please try again");
-      console.error(error);
     } finally {
       setIsSubmitting(false);
     }

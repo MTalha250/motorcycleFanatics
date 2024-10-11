@@ -23,8 +23,7 @@ import { Toaster } from "react-hot-toast";
 const Layout = () => {
   const location = useLocation();
   const hideHeaderFooter =
-    location.pathname === "/login" ||
-    location.pathname === "/signup" ||
+    location.pathname === "/video-verification" ||
     location.pathname === "/search-result/available" ||
     location.pathname === "/search-result/not-available" ||
     location.pathname === "/email-verification";

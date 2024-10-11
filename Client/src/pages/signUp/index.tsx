@@ -83,9 +83,13 @@ const SignUp = () => {
     setIsSubmitting(true);
     try {
       const { user, token, message } = await register(values);
+      console.log(user, token, message);
       setUser(user);
       setToken(token);
-      toast.success(message || "Registered successfully");
+      toast.success(
+        message ||
+          "Registration successful. A verification code has been sent to your email address."
+      );
       navigate("/email-verification");
     } catch (error: any) {
       if (error.response?.status === 422) {
@@ -102,7 +106,7 @@ const SignUp = () => {
   return (
     <div className="bg-white text-black">
       <div className="flex flex-col md:flex-row h-full">
-        <div className="w-full min-h-screen md:w-1/2 flex flex-col justify-center px-6 lg:px-16 py-10 font-poppins">
+        <div className="w-full min-h-screen md:w-1/2 flex flex-col justify-center px-6 lg:px-16 py-10 font-poppins md:mt-12 mt-0">
           <p className="text-3xl font-semibold mb-6">Get Started Now</p>
 
           {/* Form Fields */}

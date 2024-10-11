@@ -7,6 +7,9 @@ type User = {
   city: string;
   country: string;
   mobile_phone_number: string;
+  is_email_verified: boolean;
+  is_video_verified: boolean;
+  is_premium_user: boolean;
   is_verified: boolean;
   email: string;
   created_at: string;

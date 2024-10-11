@@ -2,9 +2,14 @@ import email from "../../assets/email.png";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import axios from "axios";
+import useAuthStore from "@/store/authStore";
+import { useNavigate } from "react-router-dom";
 
 const EmailVerification = () => {
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
+  const { user, setUser } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleChange = (element: HTMLInputElement, index: number) => {
     if (!isNaN(Number(element.value))) {
@@ -18,10 +23,30 @@ const EmailVerification = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (otp.includes("")) {
       toast.error("Please enter the OTP");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URI}/verify-email`,
+        {
+          email: user?.email,
+          code: otp.join(""),
+        }
+      );
+      setUser(response.data.user);
+      toast.success(response.data.message || "Email verified successfully");
+      otp.fill("");
+      navigate(
+        response.data.user?.is_video_verified ? "/" : "/video-verification"
+      );
+    } catch (error) {
+      console.error(error);
+      toast.error("Invalid OTP");
       return;
     }
 
