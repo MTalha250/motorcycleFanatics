@@ -42,11 +42,14 @@ export const loginBack = async () => {
     return null;
   }
 
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URI}/user`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_BASE_URI}/get-premium-user-by-token`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return { user: data, token };
 };

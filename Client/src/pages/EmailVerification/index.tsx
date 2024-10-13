@@ -39,10 +39,15 @@ const EmailVerification = () => {
         }
       );
       setUser(response.data.user);
+
       toast.success(response.data.message || "Email verified successfully");
       otp.fill("");
-      navigate(
-        response.data.user?.is_video_verified ? "/" : "/video-verification"
+      setTimeout(
+        () =>
+          navigate(
+            response.data.user?.is_video_verified ? "/" : "/video-verification"
+          ),
+        1500
       );
     } catch (error) {
       console.error(error);

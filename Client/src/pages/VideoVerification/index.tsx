@@ -1,26 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import videoSrc from "@/assets/video.mp4";
 import toast from "react-hot-toast";
+import axios from "axios";
+import useAuthStore from "@/store/authStore";
+import { useNavigate } from "react-router-dom";
 
 const VideoVerification: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoWatched, setIsVideoWatched] = useState(false);
   const [lastTime, setLastTime] = useState(0);
-
-  // Warn user when they try to leave the page before watching the full video
+  const { user, token, setUser } = useAuthStore();
+  const navigate = useNavigate();
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       if (!isVideoWatched) {
         event.preventDefault();
         event.returnValue = "";
-        toast.error("You must watch the full video to get verified.");
       }
     };
 
     const handlePopState = () => {
       if (!isVideoWatched) {
         toast.error("You must watch the full video to get verified.");
-        // Optionally prevent navigation if you want strict control
         window.history.pushState(null, "", window.location.href);
       }
     };
@@ -35,13 +36,29 @@ const VideoVerification: React.FC = () => {
     };
   }, [isVideoWatched]);
 
-  // Handle when video ends
-  const handleVideoEnded = () => {
+  const handleVideoEnded = async () => {
     setIsVideoWatched(true);
-    toast.success("You've completed the video. You're verified!");
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_BASE_URI}/update-premium-user/${user?.id}`,
+        {
+          is_video_verified: true,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUser(response.data.user);
+      toast.success("You've completed the video. You're verified!");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
-  // Prevent seeking in the video
   const handleTimeUpdate = () => {
     const videoElement = videoRef.current;
     if (videoElement) {
@@ -49,24 +66,26 @@ const VideoVerification: React.FC = () => {
         videoElement.currentTime > lastTime + 1 ||
         videoElement.currentTime < lastTime
       ) {
-        videoElement.currentTime = lastTime; // Reset to the last allowed time
+        videoElement.currentTime = lastTime;
       } else {
-        setLastTime(videoElement.currentTime); // Update last allowed time
+        setLastTime(videoElement.currentTime);
       }
     }
   };
 
-  // Play video automatically on mount
   useEffect(() => {
     const videoElement = videoRef.current;
     if (videoElement) {
-      videoElement.play();
+      videoElement.play().catch((error) => {
+        console.error("Autoplay failed:", error);
+        toast.error("Please click to start the video.");
+      });
     }
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center container">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full text-center">
+      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-3xl text-center">
         <h1 className="text-4xl font-bold mb-6 text-white">
           Video Verification
         </h1>
@@ -76,7 +95,7 @@ const VideoVerification: React.FC = () => {
           onEnded={handleVideoEnded}
           onTimeUpdate={handleTimeUpdate}
           controls={false}
-          autoPlay
+          playsInline
         >
           <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.

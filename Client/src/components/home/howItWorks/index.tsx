@@ -2,15 +2,26 @@ import arrowDown from "../../../assets/arrow-down.svg";
 import { motion } from "framer-motion";
 import Locator from "@/components/Locator";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const HowItWorks = () => {
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
     null
   );
+  const navigate = useNavigate();
 
   const handleLocationSet = (location: { lat: number; lng: number }) => {
     setLocation(location);
-    console.log("Selected Location:", location);
   };
+
+  const handleSearch = () => {
+    if (!location) {
+      toast.error("Please select a location first");
+      return;
+    }
+    navigate(`/our-plan/${location.lat}/${location.lng}`);
+  };
+
   return (
     <div className="container py-10">
       <div className="flex flex-col justify-center items-center space-y-16">
@@ -64,7 +75,10 @@ const HowItWorks = () => {
           </form>
         </div>
 
-        <button className="bg-primary py-2 px-12 lg:py-4 lg:px-10 text-white rounded-2xl text-xl font-semibold btn-primary-hover">
+        <button
+          onClick={handleSearch}
+          className="bg-primary py-2 px-12 lg:py-4 lg:px-10 text-white rounded-2xl text-xl font-semibold btn-primary-hover"
+        >
           Search Now
         </button>
       </div>

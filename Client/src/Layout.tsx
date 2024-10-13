@@ -1,40 +1,53 @@
-// import { Outlet } from "react-router-dom";
-// import Navbar from "./components/navbar";
-// import Footer from "./components/Footer";
-
-// const Layout = () => {
-//   return (
-//     <div>
-//       <Navbar/>
-//       <Outlet />
-//       <Footer/>
-//     </div>
-//   );
-// };
-
-// export default Layout;
-
-import { useLocation } from "react-router-dom";
-import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import { loginBack } from "./hooks/auth";
+import useAuthStore from "./store/authStore";
 
 const Layout = () => {
-  const location = useLocation();
-  const hideHeaderFooter =
-    location.pathname === "/video-verification" ||
-    location.pathname === "/search-result/available" ||
-    location.pathname === "/search-result/not-available" ||
-    location.pathname === "/email-verification";
-  const searchHeader = location.pathname === "/search-result";
+  const { setUser, setToken } = useAuthStore();
+
+  useEffect(() => {
+    handleLoginBack();
+  }, []);
+
+  const handleLoginBack = async () => {
+    try {
+      const res = await loginBack();
+      if (!res) {
+        setToken("");
+        setUser(null);
+        localStorage.removeItem("token");
+        return;
+      }
+      setUser(res?.user.user);
+
+      if (res?.token) {
+        setToken(res.token);
+      }
+    } catch (error: any) {
+      setToken("");
+      setUser(null);
+      localStorage.removeItem("token");
+    }
+  };
 
   return (
     <div>
-      {!hideHeaderFooter && !searchHeader && <Navbar />}
       <Outlet />
-      {!hideHeaderFooter && <Footer />}
-      <Toaster />
+      <Footer />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 5000,
+          style: {
+            background: "#081022",
+            color: "#FDF8EC",
+            border: "1px solid #FF1F47",
+          },
+        }}
+      />
     </div>
   );
 };
