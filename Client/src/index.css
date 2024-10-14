@@ -44,6 +44,13 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
+/* Add this in your styles.css or any global CSS file */
+.box-shadow {
+  box-shadow: 1px 1px 20px #FF1F47; /* Change the offsets and color as needed */
+}
+
+
+
 
 .heading-1{
   @apply text-4xl lg:text-[64px] md:text-5xl leading-tight font-bold

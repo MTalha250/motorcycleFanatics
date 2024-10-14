@@ -85,13 +85,13 @@ const VideoVerification: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center container">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-3xl text-center">
+      <div className="bg-gray-800 p-6 box-shadow w-full max-w-3xl text-center rounded-xl">
         <h1 className="text-4xl font-bold mb-6 text-white">
           Video Verification
         </h1>
         <video
           ref={videoRef}
-          className="w-full h-auto mb-4 rounded-lg border border-primary"
+          className="w-full h-auto mb-4 border-[1px] border-white rounded-xl"
           onEnded={handleVideoEnded}
           onTimeUpdate={handleTimeUpdate}
           controls={false}

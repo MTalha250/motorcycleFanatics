@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./pages/home";
 import SearchResultAvailable from "./pages/searchResultAvailable";
-import SearchResultNotAvailable from "./pages/searchResultNotAvailable";
 import SignUp from "./pages/signUp";
 import Login from "./pages/Login";
 import EmailVerification from "./pages/EmailVerification";
@@ -28,10 +27,6 @@ const App = () => {
         <Route
           path="/search-result/available"
           element={<SearchResultAvailable />}
-        />
-        <Route
-          path="/search-result/not-available"
-          element={<SearchResultNotAvailable />}
         />
         <Route path="/our-plan/:lat/:lng" element={<PlanPage />} />
       </Route>

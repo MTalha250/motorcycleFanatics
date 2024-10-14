@@ -68,7 +68,7 @@ const Login = () => {
   return (
     <div className="bg-white text-black">
       <div className="flex flex-col lg:flex-row h-full">
-        <div className="w-full lg:w-1/2 min-h-screen flex flex-col justify-center px-6 lg:px-16 py-10 font-poppins">
+        <div className="w-full lg:w-1/2 lg:min-h-screen flex flex-col justify-center px-6 lg:px-16 py-10 font-poppins">
           <p className="text-3xl font-semibold mb-6">Welcome Back</p>
 
           {/* Form Fields */}
