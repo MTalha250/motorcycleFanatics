@@ -1,18 +1,28 @@
-
-import { useState } from "react";
 import cardIcon from "../../../assets/card-icon.svg";
 import CheckCircle from "../../../assets/Tick.svg";
 import { MoveRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Pricing = () => {
-  // State to manage the pricing label
-  const [isPremium, setIsPremium] = useState(false);
+  const [plans, setPlans] = useState([]);
 
-  // Function to toggle the pricing label
-  const handleToggle = () => {
-    setIsPremium((prev) => !prev);
+  const fetchPlans = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URI}/plans`
+      );
+      setPlans(response.data);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    fetchPlans();
+  }, []);
 
   return (
     <div className="container my-10">
@@ -23,7 +33,9 @@ const Pricing = () => {
         </h3>
 
         <p className="para-medium text-center md:px-24 lg:px-48">
-          We offer secure payment methods including PayPal, credit card, and Klarna. Your subscription will automatically renew every month, and you can cancel at any time.
+          We offer secure payment methods including PayPal, credit card, and
+          Klarna. Your subscription will automatically renew every month, and
+          you can cancel at any time.
         </p>
 
         {/* Card */}
@@ -34,12 +46,12 @@ const Pricing = () => {
           viewport={{ once: true }}
           className="flex flex-col justify-center items-center bg-[#2E2E30] md:w-[410px] rounded-2xl py-10 space-y-7"
         >
-          <p className="para-large">{isPremium ? "Premium" : "Gold"}</p>
+          <p className="para-large">Gold</p>
 
           <div className="h-[88px] w-[88px] bg-primary rounded-full flex justify-center items-center">
             <img src={cardIcon} alt="cardIcon" />
           </div>
-          <h2 className="heading-2">€{isPremium ? "149" : "99"}</h2>
+          <h2 className="heading-2">€ 99</h2>
           <ul className="space-y-3 px-10 flex flex-col justify-end items-start md:ms-5">
             <li className="flex justify-center items-center gap-3">
               <img src={CheckCircle} alt="check circle" />
@@ -53,31 +65,7 @@ const Pricing = () => {
               <img src={CheckCircle} alt="check circle" />
               Licenses and memberships for these select regions
             </li>
-            <div className="min-h-[35px]">
-              <li className={`flex justify-center items-center gap-3 ${!isPremium ? 'hidden' : 'block'}`}>
-                <img src={CheckCircle} alt="check circle" />
-                Custom Support 24/7
-              </li>
-            </div>
-
-
           </ul>
-
-          <div className="flex items-center">
-            <label className="relative inline-flex items-center ms-3 cursor-pointer">
-              <input
-                type="checkbox"
-                className="sr-only"
-                checked={isPremium}
-                onChange={handleToggle}
-              />
-              <div className="w-14 h-6 bg-gray-600 rounded-full"></div>
-              <div
-                className={`absolute left-1 top-0 w-6 h-6 bg-primary rounded-full transition ${isPremium ? "translate-x-6" : ""
-                  }`}
-              ></div>
-            </label>
-          </div>
           <button className="bg-primary px-5 py-3 rounded-[8px] btn-primary-hover">
             Select our Plan <MoveRight className="ms-1 inline" />
           </button>

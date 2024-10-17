@@ -4,7 +4,7 @@ import * as z from "zod";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Germany from "../../assets/hero-background.png";
 import useAuthStore from "@/store/authStore";
 import { login } from "@/hooks/auth";
@@ -21,6 +21,10 @@ const Login = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setUser, setToken } = useAuthStore();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // React Hook Form setup
   const form = useForm<z.infer<typeof formSchema>>({

@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./pages/home";
-import SearchResultAvailable from "./pages/searchResultAvailable";
 import SignUp from "./pages/signUp";
 import Login from "./pages/Login";
 import EmailVerification from "./pages/EmailVerification";
@@ -24,10 +23,6 @@ const App = () => {
         {!user?.is_video_verified && (
           <Route path="/video-verification" element={<VideoVerification />} />
         )}
-        <Route
-          path="/search-result/available"
-          element={<SearchResultAvailable />}
-        />
         <Route path="/our-plan/:lat/:lng" element={<PlanPage />} />
       </Route>
     </Routes>

@@ -1,38 +1,84 @@
 import arrowDown from "../../../assets/arrow-down.svg";
 import Locator from "@/components/Locator";
-import {  useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import SearchResultNotAvailable from "@/pages/searchResultNotAvailable";
-
+import { CircleX } from "lucide-react";
+import axios from "axios";
+import useAuthStore from "@/store/authStore";
 
 const HowItWorks = () => {
   const navigate = useNavigate();
   const [areaNotAvailabe, setAreaNotAvailable] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
     null
   );
-  
-const AreaNotAvailable = () => {
-  return (
-    <div>
-      <SearchResultNotAvailable  setAreaNotAvailable={setAreaNotAvailable}/>
-    </div>
-  )
-}
+  const { user, token } = useAuthStore();
 
+  const AreaNotAvailable = () => {
+    return (
+      <div className="fixed w-full h-full top-0 left-0 bg-black/50 flex justify-center items-center z-50">
+        <div className="px-2 bg-[#f60400f1] lg:max-w-[900px] min-h-[440px] rounded-xl flex flex-col justify-center items-center space-y-4 lg:space-y-6">
+          <h2 className="heading-2 text-center">
+            This Area is Currently <br />
+            Unavailable
+          </h2>
+          <p className="para-large text-center px-4">
+            Unfortunately, this area has already been secured by someone else.
+            But don't worry! You can subscribe to our updates to get notified
+            when new areas become available.
+          </p>
+          <button className="btn-hover bg-white py-3 px-2 lg:w-[270px] text-primary rounded-[8px] text-lg font-bold  ">
+            Subscribe to Updates
+          </button>
+          <CircleX
+            size={30}
+            strokeWidth={2}
+            className="btn-hover hover:cursor-pointer"
+            onClick={() => setAreaNotAvailable(false)}
+          />
+        </div>
+      </div>
+    );
+  };
 
   const handleLocationSet = (location: { lat: number; lng: number }) => {
     setLocation(location);
   };
 
-  const handleSearch = () => {
-    if (!location) {
-      toast.error("Please select a location first");
-      setAreaNotAvailable((prev) => !prev);
+  const handleSearch = async () => {
+    if (!user) {
+      toast.error("Please login first");
+      navigate("/login");
       return;
     }
-    navigate(`/our-plan/${location.lat}/${location.lng}`);
+
+    if (!location) {
+      toast.error("Please select a location first");
+      return;
+    }
+    setLoading(true);
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BASE_URI}/locations/check`,
+        {
+          latitude: location.lat,
+          longitude: location.lng,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      navigate(`/our-plan/${location.lat}/${location.lng}`);
+    } catch (error: any) {
+      if (error.response.status === 409) setAreaNotAvailable(true);
+      else toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,8 +89,8 @@ const AreaNotAvailable = () => {
         <div className="flex flex-col lg:gap-20 gap-24">
           <div className="relative ms:0 lg:-ms-16 bg-white max-w-[850px] lg:px-7 lg:py-4 py-3 px-5 rounded-full outline-4 outline-dotted outline-primary">
             <p className="para-medium text-primary !font-medium">
-              Enter the first two digits of your postcode to search for
-              availability in your region.
+              First sign up to our website by filling up your details and login
+              to your account.
             </p>
             <img
               className="absolute top-10 left-0"
@@ -67,8 +113,8 @@ const AreaNotAvailable = () => {
 
           <div className="ms-28 lg:ms-20 -mt-5 md:mt-0 bg-white max-w-[850px] py-3 px-6 lg:px-7 lg:py-4  rounded-full outline-4 outline-dotted outline-primary">
             <p className="para-medium text-primary !font-medium">
-              Enter the first two digits of your postcode to search for
-              availability in your region.
+              If area is available, You'll be redirected to the page where you
+              can subscribe our plan.
             </p>
           </div>
         </div>
@@ -84,13 +130,12 @@ const AreaNotAvailable = () => {
 
         <button
           onClick={handleSearch}
+          disabled={loading}
           className="bg-primary py-2 px-12 lg:py-4 lg:px-10 text-white rounded-2xl text-xl font-semibold btn-primary-hover"
         >
-          Search Now
+          {loading ? "Searching..." : "Search Now"}
         </button>
-        <div className="h-0">
-          {areaNotAvailabe && <AreaNotAvailable />}
-        </div>
+        {areaNotAvailabe && <AreaNotAvailable />}
       </div>
     </div>
   );
