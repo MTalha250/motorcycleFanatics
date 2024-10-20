@@ -10,7 +10,6 @@ import PlanPage from "./pages/PlanPage";
 
 const App = () => {
   const { user } = useAuthStore();
-  console.log(user);
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

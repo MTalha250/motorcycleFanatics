@@ -19,17 +19,23 @@ const HowItWorks = () => {
   const AreaNotAvailable = () => {
     return (
       <div className="fixed w-full h-full top-0 left-0 bg-black/50 flex justify-center items-center z-50">
-        <div className="px-2 bg-[#f60400f1] lg:max-w-[900px] min-h-[440px] rounded-xl flex flex-col justify-center items-center space-y-4 lg:space-y-6">
-          <h2 className="heading-2 text-center">
+        <div className="p-10 bg-[#f60400f1] lg:max-w-[900px] min-h-[440px] rounded-xl flex flex-col justify-center items-center space-y-4 lg:space-y-6">
+          <h2 className="heading-3 text-center">
             This Area is Currently <br />
             Unavailable
           </h2>
-          <p className="para-large text-center px-4">
+          <p className="text-center px-4">
             Unfortunately, this area has already been secured by someone else.
             But don't worry! You can subscribe to our updates to get notified
             when new areas become available.
           </p>
-          <button className="btn-hover bg-white py-3 px-2 lg:w-[270px] text-primary rounded-[8px] text-lg font-bold  ">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="placeholder-white w-full min-w-[300px] md:max-w-[340px] px-4 bg-[#ffffff79] py-3 rounded-[8px] outline-none text-white font-semibold focus:outline-2 focus:outline-white"
+          />
+
+          <button className="btn-hover bg-white py-3 px-2 lg:w-[270px] text-primary rounded-[8px] text-lg font-bold">
             Subscribe to Updates
           </button>
           <CircleX
@@ -135,8 +141,8 @@ const HowItWorks = () => {
         >
           {loading ? "Searching..." : "Search Now"}
         </button>
-        {areaNotAvailabe && <AreaNotAvailable />}
       </div>
+      {areaNotAvailabe && <AreaNotAvailable />}
     </div>
   );
 };

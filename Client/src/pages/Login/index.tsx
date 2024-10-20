@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 import Germany from "../../assets/hero-background.png";
 import useAuthStore from "@/store/authStore";
 import { login } from "@/hooks/auth";
-
-// Define the schema with Zod for validation
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z
@@ -54,11 +52,15 @@ const Login = () => {
         toast.error(
           error.response.data.message || "Email verification required"
         );
+        setUser(error.response.data.user);
+        setToken(error.response.data.token);
         setTimeout(() => navigate("/email-verification"), 1500);
       } else if (error.response?.status === 403) {
         toast.error(
           error.response.data.message || "Video verification required"
         );
+        setUser(error.response.data.user);
+        setToken(error.response.data.token);
         setTimeout(() => navigate("/video-verification"), 1500);
       } else {
         toast.error("Something went wrong, please try again");

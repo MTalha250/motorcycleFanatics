@@ -16,4 +16,13 @@ type User = {
   updated_at: string;
 };
 
-export type { User };
+type Plan = {
+  id: number;
+  title: string;
+  price: number;
+  features: string[];
+  created_at: string;
+  updated_at: string;
+};
+
+export type { User, Plan };
