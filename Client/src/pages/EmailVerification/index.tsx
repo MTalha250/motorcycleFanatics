@@ -42,13 +42,13 @@ const EmailVerification = () => {
 
       toast.success(response.data.message || "Email verified successfully");
       otp.fill("");
-      setTimeout(
-        () =>
-          navigate(
-            response.data.user?.is_video_verified ? "/" : "/video-verification"
-          ),
-        1500
-      );
+      setTimeout(() => {
+        if (response.data.user?.is_video_verified) {
+          navigate("/");
+        } else {
+          navigate("/video-verification");
+        }
+      }, 1500);
     } catch (error) {
       console.error(error);
       toast.error("Invalid OTP");

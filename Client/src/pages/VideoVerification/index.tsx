@@ -52,7 +52,7 @@ const VideoVerification: React.FC = () => {
       );
       setUser(response.data.user);
       toast.success("You've completed the video. You're verified!");
-      navigate("/");
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
       console.error(error);
       toast.error("An error occurred. Please try again.");

@@ -8,13 +8,12 @@ import { Plan } from "@/types";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuthStore from "@/store/authStore";
 import toast from "react-hot-toast";
-import WrappedPaymentForm from "./paymentForm"; // Import the PaymentForm component
+import WrappedPaymentForm from "./paymentForm";
 
-// Define the Pricing component
 const Pricing: React.FC = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { lat, lng } = useParams<{ lat: string; lng: string }>(); // UseParams for longitude and latitude
+  const { lat, lng } = useParams<{ lat: string; lng: string }>();
   const { user, token } = useAuthStore();
   const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState<null | {
@@ -45,8 +44,6 @@ const Pricing: React.FC = () => {
       navigate("/login");
       return;
     }
-
-    // Open payment form for Stripe
     setSelectedPlan({ id, price });
   };
 
@@ -63,56 +60,57 @@ const Pricing: React.FC = () => {
           Klarna. Your subscription will automatically renew every month, and
           you can cancel at any time.
         </p>
-
-        {/* Plan Cards */}
-        {plans.map((plan) => (
-          <motion.div
-            key={plan.id}
-            initial={{ opacity: 0, x: -75, scale: 0.9 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 1.3, delay: 0.25 }}
-            viewport={{ once: true }}
-            className="flex flex-col justify-center items-center bg-[#2E2E30] md:w-[410px] rounded-2xl py-10 space-y-7"
-          >
-            <p className="para-large">{plan.title}</p>
-
-            <div className="h-[88px] w-[88px] bg-primary rounded-full flex justify-center items-center">
-              <img src={cardIcon} alt="cardIcon" />
-            </div>
-            <h2 className="heading-3">€ {plan.price} / month</h2>
-            <ul className="space-y-3 px-10 flex flex-col justify-end items-start md:ms-5">
-              {plan.features.map((feature, index) => (
-                <li
-                  key={index}
-                  className="flex justify-center items-center gap-3"
-                >
-                  <img src={CheckCircle} alt="check circle" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => handleSubscribe(plan.id, plan.price)}
-              disabled={loading}
-              className="bg-primary px-5 py-3 rounded-[8px] btn-primary-hover"
+        <div className="flex gap-5">
+          {plans.map((plan) => (
+            <motion.div
+              key={plan.id}
+              initial={{ opacity: 0, x: -75, scale: 0.9 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 1.3, delay: 0.25 }}
+              viewport={{ once: true }}
+              className="flex flex-col justify-center items-center bg-[#2E2E30] md:w-[410px] rounded-2xl py-10 space-y-7"
             >
-              {loading ? (
-                "Loading..."
-              ) : (
-                <>
-                  Subscribe our Plan <MoveRight className="ms-1 inline" />
-                </>
-              )}
-            </button>
-          </motion.div>
-        ))}
+              <p className="para-large">{plan.title}</p>
 
+              <div className="h-[88px] w-[88px] bg-primary rounded-full flex justify-center items-center">
+                <img src={cardIcon} alt="cardIcon" />
+              </div>
+              <h2 className="heading-3">€ {plan.price} / month</h2>
+              <ul className="space-y-3 px-10 flex flex-col justify-end items-start md:ms-5">
+                {plan.features.map((feature, index) => (
+                  <li
+                    key={index}
+                    className="flex justify-center items-center gap-3"
+                  >
+                    <img src={CheckCircle} alt="check circle" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => handleSubscribe(plan.id, plan.price)}
+                disabled={loading}
+                className="bg-primary px-5 py-3 rounded-[8px] btn-primary-hover"
+              >
+                {loading ? (
+                  "Loading..."
+                ) : (
+                  <>
+                    Subscribe this Plan <MoveRight className="ms-1 inline" />
+                  </>
+                )}
+              </button>
+            </motion.div>
+          ))}
+        </div>
         <p className="para-medium text-center">All prices are in EUR.</p>
 
-        {/* Render the Payment Form if a plan is selected */}
         {selectedPlan && (
           <WrappedPaymentForm
             planId={selectedPlan.id}
+            planName={
+              plans.find((plan) => plan.id === selectedPlan.id)?.title || "Plan"
+            }
             price={selectedPlan.price}
             longitude={lng || ""}
             latitude={lat || ""}

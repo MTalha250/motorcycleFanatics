@@ -10,17 +10,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-// Stripe type import
 import { StripeCardElement } from "@stripe/stripe-js";
 
-// Load the Stripe library
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLIC_KEY as string
 );
 
-// Define the component props for the PaymentForm
 interface PaymentFormProps {
   planId: number;
+  planName: string;
   price: number;
   longitude: string;
   latitude: string;
@@ -29,6 +27,7 @@ interface PaymentFormProps {
 
 const PaymentForm: React.FC<PaymentFormProps> = ({
   planId,
+  planName,
   price,
   longitude,
   latitude,
@@ -38,7 +37,6 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   const elements = useElements();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,12 +49,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
     const cardElement = elements.getElement(CardElement);
 
     if (!cardElement) {
-      setError("Card information is not available.");
+      toast.error("Card information is not available.");
       setLoading(false);
       return;
     }
-
-    // Create Payment Method
     const { error: paymentError, paymentMethod } =
       await stripe.createPaymentMethod({
         type: "card",
@@ -64,7 +60,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
       });
 
     if (paymentError) {
-      setError(
+      toast.error(
         paymentError.message ||
           "An error occurred while processing your payment"
       );
@@ -73,7 +69,6 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
     }
 
     try {
-      // Send the payment method and subscription details to the backend
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URI}/subscribe`,
         {
@@ -90,14 +85,33 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         }
       );
 
-      if (response.status === 200) {
-        toast.success(response.data.message || "Subscribed successfully");
-        navigate("/");
+      toast.success(response.data.message || "Subscribed successfully");
+      navigate("/");
+    } catch (error: any) {
+      if (error.response?.status === 400) {
+        toast.error(
+          error.response.data.message || "You are already subscribed"
+        );
+      } else if (error.response?.status === 401) {
+        toast.error(
+          error.response.data.message ||
+            "Subscription with this location already exists"
+        );
+      } else if (error.response?.status === 500) {
+        toast.error("Unable to validate location. Please try again.");
+      } else if (error.response?.status === 501) {
+        toast.error(
+          error.response.data.message ||
+            "Location is not in Germany, Austria, or Switzerland"
+        );
+      } else if (error.response?.status === 502) {
+        toast.error(
+          error.response.data.message ||
+            "Payment failed. Please try again or contact support"
+        );
       } else {
-        setError(response.data.error || "Subscription failed");
+        toast.error("Something went wrong. Please try again.");
       }
-    } catch (error) {
-      setError("Something went wrong. Please try again.");
       console.error(error);
     } finally {
       setLoading(false);
@@ -128,11 +142,8 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
       className="w-full max-w-lg mx-auto p-8 bg-gray-900 shadow-lg rounded-lg border border-gray-700"
     >
       <h2 className="text-2xl font-semibold text-center text-gray-100 mb-6">
-        Subscribe to Plan
+        Subscribe to {planName}
       </h2>
-
-      {error && <div className="text-red-500 mb-4">{error}</div>}
-
       <div className="mb-6">
         <label
           htmlFor="card-element"
@@ -158,7 +169,6 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   );
 };
 
-// Wrap PaymentForm with Elements provider
 const WrappedPaymentForm: React.FC<PaymentFormProps> = (props) => (
   <Elements stripe={stripePromise}>
     <PaymentForm {...props} />
