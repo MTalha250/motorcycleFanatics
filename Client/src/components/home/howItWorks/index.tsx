@@ -6,8 +6,10 @@ import toast from "react-hot-toast";
 import { CircleX } from "lucide-react";
 import axios from "axios";
 import useAuthStore from "@/store/authStore";
+import { useTranslation } from "react-i18next";
 
 const HowItWorks = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [areaNotAvailabe, setAreaNotAvailable] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -90,13 +92,12 @@ const HowItWorks = () => {
   return (
     <div className="container py-10">
       <div className="flex flex-col justify-center items-center space-y-16 relative">
-        <h2 className="heading-2 text-primary capitalize">How it works</h2>
+        <h2 className="heading-2 text-primary capitalize">{t('howItWorksH2')}</h2>
 
         <div className="flex flex-col lg:gap-20 gap-24">
           <div className="relative ms:0 lg:-ms-16 bg-white max-w-[850px] lg:px-7 lg:py-4 py-3 px-5 rounded-full outline-4 outline-dotted outline-primary">
             <p className="para-medium text-primary !font-medium">
-              First sign up to our website by filling up your details and login
-              to your account.
+              {t('howItWorksP1')}
             </p>
             <img
               className="absolute top-10 left-0"
@@ -107,8 +108,7 @@ const HowItWorks = () => {
 
           <div className="ms-10 lg:ms-0  relative bg-white max-w-[850px] lg:px-7 lg:py-4 py-3 px-5 rounded-full outline-4 outline-dotted outline-primary">
             <p className="para-medium text-primary !font-medium">
-              Enter the first two digits of your postcode to search for
-              availability in your region.
+              {t('howItWorksP2')}
             </p>
             <img
               className="absolute top-10 left-2"
@@ -119,15 +119,14 @@ const HowItWorks = () => {
 
           <div className="ms-28 lg:ms-20 -mt-5 md:mt-0 bg-white max-w-[850px] py-3 px-6 lg:px-7 lg:py-4  rounded-full outline-4 outline-dotted outline-primary">
             <p className="para-medium text-primary !font-medium">
-              If area is available, You'll be redirected to the page where you
-              can subscribe our plan.
+             {t('howItWorksP3')}
             </p>
           </div>
         </div>
 
         <div className="flex md:flex-row flex-col justify-center items-end md:items-start space-x-8 space-y-5 ">
           <h3 className="w-full md:w-1/2 heading-3 text-primary">
-            Enter the first two digits of your postcode
+            {t('enterPostCodeDigitsPara')}
           </h3>
           <form action="#" className="md:w-1/2 w-full container">
             <Locator setLocation={handleLocationSet} />

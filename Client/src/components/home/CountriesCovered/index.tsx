@@ -1,8 +1,10 @@
 import RedDot from "../../../assets/redDot.svg"
 import Map from "../../../assets/map.png"
 import { motion } from "framer-motion"
+import { useTranslation } from "react-i18next";
 
 const CounteriesCovered = () => {
+    const { t } = useTranslation();
     return (
         <div className='container py-14'>
             <div className='flex flex-col justify-center items-center space-y-12'>
@@ -11,7 +13,7 @@ const CounteriesCovered = () => {
                      whileInView={{ opacity: 1, x: 0 }}
                      transition={{ duration: 0.9, delay: 0.25 }}
                      viewport={{ once: true }}
-                className="heading-2 text-primary capitalize text-center">The countries we covered</motion.h2>
+                className="heading-2 text-primary capitalize text-center">{t('countriesCoveredH2')}</motion.h2>
                 <div className="flex justify-between items-center w-full">
                     <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">Germany</p></div>
                     <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">Austria</p></div>

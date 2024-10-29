@@ -4,8 +4,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import useAuthStore from "@/store/authStore";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const VideoVerification: React.FC = () => {
+  const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoWatched, setIsVideoWatched] = useState(false);
   const [lastTime, setLastTime] = useState(0);
@@ -87,7 +89,7 @@ const VideoVerification: React.FC = () => {
     <div className="min-h-screen flex flex-col justify-center items-center container">
       <div className="bg-gray-800 p-6 box-shadow w-full max-w-3xl text-center rounded-xl">
         <h1 className="text-4xl font-bold mb-6 text-white">
-          Video Verification
+          {t('videoVerification')}
         </h1>
         <video
           ref={videoRef}
@@ -101,7 +103,7 @@ const VideoVerification: React.FC = () => {
           Your browser does not support the video tag.
         </video>
         <p className="text-lg text-gray-400">
-          Watch the full video to get verified and access the platform.
+          {t('videoVerificationDesc')}
         </p>
       </div>
     </div>

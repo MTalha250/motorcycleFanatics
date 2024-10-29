@@ -29,8 +29,7 @@ const Hero = () => {
             {t('heroH1')}
           </h1>
           <p className="text-center mt-5 max-w-2xl text-base md:text-lg lg:text-xl">
-            Check the availability of your region and secure your spot in just a
-            few clicks. Start by entering the first two digits of your postcode.
+           {t('heroPara')}
           </p>
           <Language/>
           {user ? (

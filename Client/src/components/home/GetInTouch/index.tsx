@@ -2,8 +2,10 @@ import GPS from "../../../assets/GPS.svg"
 import Location from "../../../assets/location_on.svg"
 import { Mail, MapPin, PhoneIcon } from "lucide-react"
 import { motion } from "framer-motion"
+import { useTranslation } from "react-i18next"
 
 const GetInTouch = () => {
+    const { t } = useTranslation();
     return (
         <div className="container my-12">
             <div className="flex flex-col md:flex-row justify-center md:items-stretch gap-4">
@@ -13,7 +15,7 @@ const GetInTouch = () => {
                 transition={{ duration: 0.7, delay: 0.25 }}
                 viewport={{ once: true }}
                 className="flex flex-col justify-center md:space-y-8 items-start w-full md:w-1/2 space-y-8">
-                    <h3 className="heading-3 text-white text-start">GET IN TOUCH</h3>
+                    <h3 className="heading-3 text-white text-start">{t('getInTouchH4')}</h3>
                     <p className="para-small">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
                     <div className="flex flex-row gap-5">
                         <div className="flex flex-col">

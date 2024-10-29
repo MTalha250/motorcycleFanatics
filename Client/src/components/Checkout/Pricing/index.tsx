@@ -9,8 +9,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import useAuthStore from "@/store/authStore";
 import toast from "react-hot-toast";
 import WrappedPaymentForm from "./paymentForm";
+import { useTranslation } from "react-i18next";
 
 const Pricing: React.FC = () => {
+  const { t } = useTranslation();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { lat, lng } = useParams<{ lat: string; lng: string }>();
@@ -51,14 +53,12 @@ const Pricing: React.FC = () => {
     <div className="container my-10">
       <div className="flex flex-col justify-center items-center space-y-12">
         <h3 className="heading-3 relative">
-          PRICING
+          {t('pricingH3')}
           <span className="absolute -bottom-1 left-5 w-[90px] border-b-2 border-primary"></span>
         </h3>
 
         <p className="para-medium text-center md:px-24 lg:px-48">
-          We offer secure payment methods including PayPal, credit card, and
-          Klarna. Your subscription will automatically renew every month, and
-          you can cancel at any time.
+         {t('pricingP')}
         </p>
         <div className="flex gap-5">
           {plans.map((plan) => (
@@ -96,7 +96,7 @@ const Pricing: React.FC = () => {
                   "Loading..."
                 ) : (
                   <>
-                    Subscribe this Plan <MoveRight className="ms-1 inline" />
+                    {t('subscribeThisPlan')}<MoveRight className="ms-1 inline" />
                   </>
                 )}
               </button>

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const NewsLetter = () => {
+  const { t } = useTranslation();
   return (
     <div className="container  my-12">
       <motion.div
@@ -11,11 +13,10 @@ const NewsLetter = () => {
         className="bg-primary min-h-[350px] rounded-2xl flex flex-col justify-center items-center space-y-10 px-10"
       >
         <h3 className="heading-3 text-white capitalize">
-          Subscribe to our newsletter
+          {t('newsLetterh3')}
         </h3>
         <p>
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-          sint.{" "}
+         {t('newsLetterPara')}{" "}
         </p>
         <form
           action=""

@@ -8,6 +8,7 @@ import { useState } from "react";
 import Germany from "../../assets/hero-background.png";
 import useAuthStore from "@/store/authStore";
 import { register } from "@/hooks/auth";
+import { useTranslation } from "react-i18next";
 
 // Updated schema with the provided validation rules
 const formSchema = z
@@ -57,6 +58,7 @@ const formSchema = z
   });
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const { setUser, setToken } = useAuthStore();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -107,7 +109,7 @@ const SignUp = () => {
     <div className="bg-white text-black">
       <div className="flex flex-col md:flex-row h-full">
         <div className="w-full min-h-screen md:w-1/2 flex flex-col justify-center px-6 lg:px-16 py-10 font-poppins">
-          <p className="text-3xl font-semibold mb-6">Get Started Now</p>
+          <p className="text-3xl font-semibold mb-6">{t('SignUpH2')}</p>
 
           {/* Form Fields */}
           <motion.form
