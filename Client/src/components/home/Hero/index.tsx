@@ -55,14 +55,14 @@ const Hero = () => {
                 to="/login"
                 className="mt-10 btn-primary-hover bg-primary py-3 px-8 lg:py-4 lg:px-10 text-white rounded-[8px] text-xl font-semibold"
               >
-                Log In
+                {t("heroLogin")}
               </Link>
               <p className="my-2 text-base md:text-lg lg:text-xl">Or</p>
               <Link
                 to="/signup"
                 className="hover:underline text-base md:text-lg lg:text-xl"
               >
-                Register
+                {t("heroRegister")}
               </Link>{" "}
             </>
           )}

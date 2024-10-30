@@ -10,6 +10,8 @@ i18n.use(initReactI18next).init({
             translation: {
                 heroH1: "Secure Your Exclusive License in Germany, Austria, or Switzerland!",
                 heroPara: "Check the availability of your region and secure your spot in just a few clicks. Start by entering the first two digits of your postcode.",
+                heroLogin:"Login",
+                heroRegister:"Register",
                 aboutUsH2: 'ABOUT US:',
                 aboutUsPara: "At Motorcycle Fanatics, we are dedicated to providing exclusive access to high-demand regional areas in Germany, Austria, and Switzerland. By offering licenses and memberships for these select regions, we empower businesses and individuals to secure their presence in key markets. Whether you're looking to grow your brand or expand your network, our platform makes it easy to search for available areas and secure them with a simple, user-friendly process. With flexible subscription plans, secure payment options, and dedicated customer support, we are committed to helping you succeed in your chosen region. Join us today and take the next step toward unlocking new opportunities!",
                 countriesCoveredH2: 'The countries we covered',
@@ -99,6 +101,8 @@ i18n.use(initReactI18next).init({
             translation: {
                 heroH1: "Sichern Sie sich Ihre exklusive Lizenz in Deutschland, Österreich oder der Schweiz!",
                 heroPara: "Prüfen Sie die Verfügbarkeit Ihrer Region und sichern Sie sich mit wenigen Klicks Ihren Platz. Geben Sie zunächst die ersten beiden Ziffern Ihrer Postleitzahl ein.",
+                heroLogin:"Anmelden",
+                heroRegister:"Registrieren",
                 aboutUsH2: 'ÜBER UNS:',
                 aboutUsPara: "Bei Motorcycle Fanatics bieten wir exklusiven Zugang zu regionalen Gebieten mit hoher Nachfrage in Deutschland, Österreich und der Schweiz. Durch die Bereitstellung von Lizenzen und Mitgliedschaften für diese ausgewählten Regionen ermöglichen wir es Unternehmen und Einzelpersonen, ihre Präsenz in wichtigen Märkten zu sichern. Egal, ob Sie Ihre Marke ausbauen oder Ihr Netzwerk erweitern möchten, unsere Plattform ermöglicht es Ihnen, verfügbare Gebiete einfach zu suchen und sie mit einem einfachen, benutzerfreundlichen Prozess zu sichern. Mit flexiblen Abonnementplänen, sicheren Zahlungsmöglichkeiten und engagiertem Kundenservice unterstützen wir Sie dabei, in Ihrer gewählten Region erfolgreich zu sein. Werden Sie noch heute Teil unserer Plattform und nutzen Sie neue Chancen!",
                 countriesCoveredH2: 'Die abgedeckten Länder',
