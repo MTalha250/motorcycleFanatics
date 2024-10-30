@@ -1,5 +1,5 @@
 import RedDot from "../../../assets/redDot.svg"
-import Map from "../../../assets/map.png"
+import Map from "../../../assets/countries.png"
 import { motion } from "framer-motion"
 import { useTranslation } from "react-i18next";
 
@@ -15,9 +15,9 @@ const CounteriesCovered = () => {
                      viewport={{ once: true }}
                 className="heading-2 text-primary capitalize text-center">{t('countriesCoveredH2')}</motion.h2>
                 <div className="flex justify-between items-center w-full">
-                    <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">Germany</p></div>
-                    <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">Austria</p></div>
-                    <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">Switzerland</p></div>
+                    <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">{t("Switzerland")}</p></div>
+                    <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">{t("Austria")}</p></div>
+                    <div className="flex justify-center items-center gap-2"><img src={RedDot} alt="Point" /><p className="para-large text-white">{t("Germany")}</p></div>
                 </div>
                 <motion.img
                      initial={{ opacity: 0, y: -75 ,scale:0.7 }}

@@ -24,11 +24,11 @@ const NewsLetter = () => {
         >
           <input
             type="email"
-            placeholder="Enter Your Email"
+            placeholder={t("EmailPlaceholder")}
             className="placeholder-white w-full min-w-[300px] md:max-w-[340px] px-4 bg-[#ffffff79] py-3 rounded-2xl outline-none text-white font-semibold focus:outline-2 focus:outline-white"
           />
           <button className="bg-white btn-hover text-primary font-semibold px-6 py-3 rounded-xl">
-            Submit
+            {t("submit")}
           </button>
         </form>
       </motion.div>

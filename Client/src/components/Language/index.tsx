@@ -9,11 +9,11 @@ function Language() {
     const { i18n } = useTranslation();
     const languages = [
         {
-            code: 'en', lang: "English", flag : America
+            code: 'de', lang: "German" , flag : Germany
         },
         {
-            code: 'de', lang: "German" , flag : Germany
-        }
+            code: 'en', lang: "English", flag : America
+        },
     ]
     return (
             <div className="relative mt-1">

@@ -6,6 +6,7 @@ import React, {
   useMemo,
 } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useTranslation } from "react-i18next";
 
 // Configuration
 const CONFIG = {
@@ -73,6 +74,7 @@ const Locator: React.FC<LocatorProps> = ({
   initialValue = "",
   setLocation,
 }) => {
+  const { t } = useTranslation();
   const [address, setAddress] = useState(initialValue);
   const [predictions, setPredictions] = useState<
     google.maps.places.AutocompletePrediction[]
@@ -201,7 +203,7 @@ const Locator: React.FC<LocatorProps> = ({
       <input
         id="postcode"
         className="w-full px-2 py-4 rounded-2xl outline-none text-primary font-semibold focus:outline-2 focus:outline-primary"
-        placeholder="Enter postcode"
+        placeholder={t("PostalCode")}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
         onKeyDown={handleKeyDown}

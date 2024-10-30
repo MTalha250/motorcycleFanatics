@@ -17,6 +17,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -90,12 +91,12 @@ const Login = () => {
             {/* Email */}
             <div className="flex flex-col items-start justify-center space-y-2">
               <label htmlFor="email" className="w-full lg:w-1/3 text-lg">
-                Email
+                {t("formEmail")}
               </label>
               <input
                 type="email"
                 id="email"
-                placeholder="Enter your email"
+                placeholder={t("emailPlaceHolder")}
                 className="w-full px-4 py-2 border border-gray-300 rounded-[8px] focus:outline-primary"
                 {...form.register("email")}
               />
@@ -107,12 +108,12 @@ const Login = () => {
             {/* Password */}
             <div className="flex flex-col items-start justify-center space-y-2">
               <label htmlFor="password" className="w-full lg:w-1/3 text-lg">
-                Password
+                {t('formPassword')}
               </label>
               <input
                 type="password"
                 id="password"
-                placeholder="Enter your Password"
+                placeholder={t("passwordPlaceHolder")}
                 className="w-full px-4 py-2 border border-gray-300 rounded-[8px] focus:outline-primary"
                 {...form.register("password")}
               />
@@ -127,15 +128,15 @@ const Login = () => {
               disabled={isSubmitting}
               className="btn-primary-hover w-full bg-primary text-white py-2 rounded-full font-semibold text-lg"
             >
-              {isSubmitting ? "Logging in..." : "Sign In"}
+              {isSubmitting ? t("Sign In") : t("signInBtn")}
             </button>
           </motion.form>
 
           {/* Sign In Link */}
           <div className="mt-6 text-center text-sm font-medium">
-            Don't have an account?{" "}
+            {t("dontHaveAccount")}{" "}
             <Link to="/signup" className="btn-hover text-primary font-semibold">
-              Sign Up
+              {t("signUp")}
             </Link>
           </div>
         </div>

@@ -138,7 +138,7 @@ const HowItWorks = () => {
           disabled={loading}
           className="bg-primary py-2 px-12 lg:py-4 lg:px-10 text-white rounded-2xl text-xl font-semibold btn-primary-hover"
         >
-          {loading ? "Searching..." : "Search Now"}
+          {loading ? t("searching") : t("serachNow")}
         </button>
       </div>
       {areaNotAvailabe && <AreaNotAvailable />}

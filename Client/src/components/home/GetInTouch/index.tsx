@@ -21,7 +21,7 @@ const GetInTouch = () => {
                         <div className="flex flex-col">
                             <div className="flex flex-row justify-start items-center gap-2">
                                 <MapPin />
-                                <h4 className="heading-4 capitalize">Location</h4>
+                                <h4 className="heading-4 capitalize">{t("getInTouchLocation")}</h4>
                             </div>
                             <p className="para-small">8819 Ohio St. South Gate, California 90280</p>
                         </div>
@@ -29,7 +29,7 @@ const GetInTouch = () => {
                         <div className="flex flex-col">
                             <div className="flex flex-row justify-start items-center gap-2">
                                 <Mail />
-                                <h4 className="heading-4 capitalize">Email</h4>
+                                <h4 className="heading-4 capitalize">{t("getInTouchEmail")}</h4>
                             </div>
                             <p className="para-small">ourstudio@hello.com</p>
                         </div>
@@ -38,7 +38,7 @@ const GetInTouch = () => {
                     <div className="flex flex-col">
                             <div className="flex flex-row justify-start items-center gap-2">
                                 <PhoneIcon />
-                                <h4 className="heading-4 capitalize">Phone</h4>
+                                <h4 className="heading-4 capitalize">{t("getInTouchPhone")}</h4>
                             </div>
                             <p className="para-small">+271 386-647-3637</p>
                         </div>

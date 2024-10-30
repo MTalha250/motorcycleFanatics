@@ -5,8 +5,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import useAuthStore from "@/store/authStore";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const EmailVerification = () => {
+  const { t } = useTranslation();
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
   const { user, setUser } = useAuthStore();
   const navigate = useNavigate();
@@ -77,7 +79,7 @@ const EmailVerification = () => {
       {/* Content */}
       <div className="mt-0 md:mt-20 flex flex-col items-center">
         <p className="text-primary text-xl md:text-2xl lg:text-3xl leading-tight font-bold text-center">
-          Verify Your Email Address
+          {t("verifyEmail")}
         </p>
 
         <motion.form
@@ -105,7 +107,7 @@ const EmailVerification = () => {
           </div>
 
           <button className="btn-primary-hover bg-primary px-6 py-2 md:px-4 md:py-3 rounded-[8px] text-white font-semibold text-sm md:text-base">
-            Verify and Continue
+            {t("verifyBtn")}
           </button>
         </motion.form>
       </div>
